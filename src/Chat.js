@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Chat.css'
 import db from './firebase';
+import Message from './Message';
 import { useStateValue } from './StateProvider';
 
 function Chat(){
@@ -71,23 +72,10 @@ function Chat(){
             </div>
         </div>
         <div className="chat_body">
-            {messages.map( message => {
-               console.log(message.timestamp)
-                return(
-                    
-                    <div className={`chat_message ${message.name === user.displayName && "chat_reciever"}`}>
-                        
-                            <p className="chat__messageName">{message.name}</p>
-                            <p>
-                                {message.message} 
-                                <span className="chat_timeStamp">
-                                    {message.timestamp}
-                                </span>
-                            </p>
-                    
-                    </div>
-                )
-            })}         
+            {messages.map( (mess, index) => {
+                console.log(mess)
+                return <Message key={index} name={mess.name} dname={user.displayName} message={mess.message}/>
+            })}     
         </div>
         <div className="chat_footer">
             <InsertEmoticon />
