@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Message({name, dname, message}) {
+function Message({name, dname, message, time}) {                                                                                                                                                                                                                          
     return (
        <div className={`chat_message ${name === dname && "chat_reciever"}`}>
                         
@@ -8,7 +8,7 @@ function Message({name, dname, message}) {
                 <p>
                     {message} 
                     {/* <span className="chat_timeStamp">
-                        {message.timestamp}
+                        {}
                     </span> */}
                 </p>
         

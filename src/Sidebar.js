@@ -8,18 +8,21 @@ import { useStateValue } from './StateProvider';
 
 function Sidebar(){
     const [rooms, setRooms] = useState([]);
-    const [{ user }] = useStateValue();
+    const [{ user}] = useStateValue();
 
     useEffect(() => {
-        db.collection('rooms').onSnapshot(snapshot => (
-            setRooms(snapshot.docs.map(doc => (
-                {
-                    id: doc.id,
-                    data: doc.data()
-                }
-            )))
-        ))
-    })
+        db.collection('rooms').onSnapshot(snapshot => {
+            setRooms(snapshot.docs.map(doc => 
+                (
+                    {   
+                        id: doc.id,
+                        data: doc.data()
+                    }
+                )  
+            )); 
+        });
+    },[]);
+    
   return(
     <div className="Sidebar">
         <div className="sidebar_header">
@@ -48,9 +51,11 @@ function Sidebar(){
                 <SidebarChat 
                 key={room.id}
                 id={room.id}
-                name={room.data.name}
+                name={room.data}
                 />
-            ))}
+            ))
+                
+            }
         </div>
     </div>
   )

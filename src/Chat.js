@@ -28,7 +28,13 @@ function Chat(){
                 .orderBy('timestamp', 'asc')
                 .onSnapshot(snapShot => {
                     setMessages(snapShot.docs.map(doc => doc.data()))
-                })
+                });
+            db
+                .collection('users')
+                .onSnapshot(snapshot => (
+                    console.log(snapshot.docs)
+                ));
+
         }
     }, [roomid]);
 
@@ -38,7 +44,7 @@ function Chat(){
 
     const sendMessage = (e) => {
         e.preventDefault()
-        console.log("You typed >>>", input);
+        
         db
             .collection('rooms')
             .doc(roomid)
@@ -73,7 +79,6 @@ function Chat(){
         </div>
         <div className="chat_body">
             {messages.map( (mess, index) => {
-                console.log(mess)
                 return <Message key={index} name={mess.name} dname={user.displayName} message={mess.message}/>
             })}     
         </div>
